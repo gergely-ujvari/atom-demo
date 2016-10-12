@@ -1,6 +1,6 @@
 import { store } from '../store/store';
-import { processUrl } from "./parser";
-import { AtomFeed } from "./feed";
+import { processUrl } from "./feedParser";
+import { Article } from "./feed";
 import { ApplicationAction } from "../store/ApplicationAction";
 
 // Using the low level API to track URL changes
@@ -15,7 +15,7 @@ function handleUrlChange () {
     previousUrl = currentUrl;
 
     // When new URL is set, start processing the feed
-    processUrl(currentUrl, (error: Error, result: AtomFeed) => {
+    processUrl(currentUrl, (error: Error, result: Article[]) => {
         if (error) {
             store.dispatch({
                 type: "SET_ERROR",

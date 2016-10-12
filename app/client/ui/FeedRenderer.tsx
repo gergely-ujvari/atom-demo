@@ -1,15 +1,15 @@
 import * as React from 'react';
-import { AtomFeed } from "../feed/feed";
+import { Article } from "../feed/feed";
 
 export interface FeedRendererProps {
-    feed: AtomFeed;
+    articles: Article[];
 }
 
 export class FeedRenderer extends React.Component<FeedRendererProps, {}> {
     render () {
         return (
             <div>
-                {this.props.feed}
+                {this.props.articles}
             </div>
         )
     }

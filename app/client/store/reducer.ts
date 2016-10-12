@@ -8,7 +8,7 @@ function getNewState(state: ApplicationState, newState: ApplicationState) {
 export function setStartState (): ApplicationState {
     return {
         feedUrl: '',
-        feedData: null,
+        articles: null,
         errorMessage: ''
     };
 }
@@ -20,7 +20,7 @@ export function reducer (state: ApplicationState, action: ApplicationAction) {
         case "SET_ERROR":
             return getNewState(state, { errorMessage: action.errorMessage} as ApplicationState);
         case "FEED_DATA":
-            return getNewState(state, { feedData: action.feedData} as ApplicationState);
+            return getNewState(state, { articles: action.feedData} as ApplicationState);
         default:
             return state;
     }

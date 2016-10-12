@@ -24,3 +24,4 @@ insecure@1.0.7                # Allow all DB writes from clients (for prototypin
 meteortypescript:compiler # Use typescript
 less@2.7.5
 nemo64:bootstrap
+http@1.2.9

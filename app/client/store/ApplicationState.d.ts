@@ -1,5 +1,7 @@
+import { Article } from "../feed/feed";
+
 export interface ApplicationState {
     feedUrl: string;
     errorMessage: string;
-    feedData: any;
+    articles: Article[];
 }

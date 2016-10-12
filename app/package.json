@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "common.js": "^1.1.1",
-    "feedparser": "^1.1.5",
+    "feed-read-parser": "0.0.6",
     "meteor-node-stubs": "^0.2.3",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
