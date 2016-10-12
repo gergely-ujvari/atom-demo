@@ -1,11 +1,12 @@
 import * as React from 'react';
-import { AtomArticle } from "../feed/feed";
-import { Article } from "./Article";
+import { Article } from "../feed/feed";
+import { ArticleRenderer } from "./ArticleRenderer";
 
 export interface FeedRendererProps {
-    articles: AtomArticle[];
+    articles: Article[];
 }
 
+// Component for rendering the found article list
 export class FeedRenderer extends React.Component<FeedRendererProps, {}> {
     renderHeader () {
         const articleNumber:number = this.props.articles.length;
@@ -21,8 +22,8 @@ export class FeedRenderer extends React.Component<FeedRendererProps, {}> {
     }
 
     renderArticles () {
-        return this.props.articles.map((a:AtomArticle, index:number) => {
-            return <Article article={a} key={index}/>;
+        return this.props.articles.map((a:Article, index:number) => {
+            return <ArticleRenderer article={a} key={index}/>;
         });
     }
 

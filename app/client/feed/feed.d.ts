@@ -1,7 +1,7 @@
 // Definitions for the received atom feed article
 // See https://www.npmjs.com/package/feed-read-parser
 
-export interface AtomArticle {
+export interface Article {
     title?: string;
     author?: string;
     link?: string;

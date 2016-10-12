@@ -3,7 +3,7 @@
 let feed = require("feed-read-parser");
 let validUrl = require('valid-url');
 import { HTTP } from 'meteor/http';
-import { AtomArticle } from "./feed";
+import { Article } from "./feed";
 
 const proxyUrl = 'https://query.yahooapis.com/v1/public/yql?q=';
 
@@ -15,7 +15,7 @@ function getProxyUrl (url: string) {
     return proxyUrl + encodeURIComponent(getSelectString(url));
 }
 
-export function processUrl(url: string, cb:(err:Error, articles?: AtomArticle[]) => void) {
+export function processUrl(url: string, cb:(err:Error, articles?: Article[]) => void) {
     if (!validUrl.isUri(url)) {
         return cb(new Error('Invalid URL (' + url + ')'));
     }
@@ -29,7 +29,7 @@ export function processUrl(url: string, cb:(err:Error, articles?: AtomArticle[])
             return cb(new Error('Bad status code - ' + res.statusCode));
         }
 
-        feed.atom(res.content, function (parseError: Error, articles:AtomArticle[]) {
+        feed.atom(res.content, function (parseError: Error, articles:Article[]) {
             if (parseError) {
                 return cb(parseError);
             }

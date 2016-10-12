@@ -1,7 +1,7 @@
-import { AtomArticle } from "../feed/feed";
+import { Article } from "../feed/feed";
 
 export interface ApplicationState {
     feedUrl: string;
     errorMessage: string;
-    articles: AtomArticle[];
+    articles: Article[];
 }

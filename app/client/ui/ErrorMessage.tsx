@@ -4,6 +4,7 @@ export interface ErrorMessageProps {
     message?: string;
 }
 
+// Responsible for showing the error message if available
 export class ErrorMessage extends React.Component<ErrorMessageProps,{}> {
     render () {
         // Don't show for empty message

@@ -5,6 +5,7 @@ import { FeedUrlContainer } from "./FeedUrlContainer";
 import { ErrorMessageContainer } from "./ErrorMessageContainer";
 import { FeedRendererContainer } from "./FeedRendererContainer";
 
+// The Root component
 export class MainApp extends React.Component<{},{}> {
     render () {
         return (

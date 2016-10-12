@@ -1,14 +1,13 @@
-// For displaying a single Article
 
 import * as React from 'react';
-import { AtomArticle } from "../feed/feed";
+import { Article } from "../feed/feed";
 
 interface ArticleProps {
-    article: AtomArticle;
+    article: Article;
 }
 
-export class Article extends React.Component<ArticleProps,{}> {
-
+// Component responsible for rendering a simple Article
+export class ArticleRenderer extends React.Component<ArticleProps,{}> {
     render () {
         if (!this.props.article) {
             return null;
