@@ -1,7 +1,8 @@
 // Fetching the Atom feed - using YQL as a free proxy
 
-import { HTTP } from 'meteor/http';
 let feed = require("feed-read-parser");
+let validUrl = require('valid-url');
+import { HTTP } from 'meteor/http';
 import { AtomArticle } from "./feed";
 
 const proxyUrl = 'https://query.yahooapis.com/v1/public/yql?q=';
@@ -15,6 +16,10 @@ function getProxyUrl (url: string) {
 }
 
 export function processUrl(url: string, cb:(err:Error, articles?: AtomArticle[]) => void) {
+    if (!validUrl.isUri(url)) {
+        return cb(new Error('Invalid URL (' + url + ')'));
+    }
+
     HTTP.get(getProxyUrl(url), function (error:Error, res:HTTP.HTTPResponse) {
         if (error) {
             return cb(error);
@@ -29,7 +34,6 @@ export function processUrl(url: string, cb:(err:Error, articles?: AtomArticle[])
                 return cb(parseError);
             }
 
-            console.log('articles', articles);
             return cb(null, articles);
         });
     });
