@@ -16,7 +16,7 @@ export function setStartState (): ApplicationState {
 export function reducer (state: ApplicationState, action: ApplicationAction) {
     switch (action.type) {
         case "SET_URL":
-            return getNewState(state, { feedUrl: action.url, errorMessage: '' } as ApplicationState);
+            return getNewState(state, { feedUrl: action.url, errorMessage: '', articles: null } as ApplicationState);
         case "SET_ERROR":
             return getNewState(state, { errorMessage: action.errorMessage} as ApplicationState);
         case "FEED_DATA":
