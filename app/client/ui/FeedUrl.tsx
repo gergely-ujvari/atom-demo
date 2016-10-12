@@ -16,17 +16,25 @@ export class FeedUrl extends React.Component<FeedUrlProps, {}> {
 
     render () {
         return (
-            <div>
-                <input type="url"
-                       ref="feedUrl"
-                       defaultValue={this.props.url}
-                />
+            <div className="row">
+                <div className="input-group">
+                    <input className="form-control"
+                           defaultValue={this.props.url}
+                           placeholder="Feed URL"
+                           ref="feedUrl"
+                           type="url"
+                           autoFocus
+                    />
 
-                <button type="submit"
-                        onClick={this.onButtonClick.bind(this)}
-                >
-                    Feed
-                </button>
+                    <span className="input-group-btn">
+                        <button className="btn btn-primary"
+                                type="submit"
+                                onClick={this.onButtonClick.bind(this)}
+                        >
+                            Read
+                        </button>
+                    </span>
+                </div>
             </div>
         )
     }

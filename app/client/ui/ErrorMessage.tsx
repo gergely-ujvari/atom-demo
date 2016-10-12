@@ -6,9 +6,13 @@ export interface ErrorMessageProps {
 
 export class ErrorMessage extends React.Component<ErrorMessageProps,{}> {
     render () {
-        console.log('render', this.props);
+        // Don't show for empty message
+        if (!this.props.message || !this.props.message.length) {
+            return null;
+        }
+
         return (
-            <div>
+            <div className="row alert alert-danger">
                 Error: {this.props.message}
             </div>
         );
