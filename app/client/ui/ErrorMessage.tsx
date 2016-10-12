@@ -12,7 +12,7 @@ export class ErrorMessage extends React.Component<ErrorMessageProps,{}> {
         }
 
         return (
-            <div className="row alert alert-danger">
+            <div className="row alert alert-danger atom-error-message">
                 Error: {this.props.message}
             </div>
         );
