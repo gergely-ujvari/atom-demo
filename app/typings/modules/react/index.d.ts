@@ -433,7 +433,7 @@ namespace React {
         onInput?: FormEventHandler;
         onSubmit?: FormEventHandler;
 
-        // Image Events
+        // Source Events
         onLoad?: ReactEventHandler;
         onError?: ReactEventHandler; // also a Media Event
 
