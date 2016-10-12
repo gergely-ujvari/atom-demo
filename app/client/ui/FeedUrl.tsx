@@ -4,6 +4,7 @@ import * as ReactDOM from 'react-dom';
 export interface FeedUrlProps {
     url?: string;
     setFeedUrl?: (url:string) => void;
+    clearError?: () => void;
 }
 
 // Simple form for dropping the feed URL.
@@ -20,6 +21,8 @@ export class FeedUrl extends React.Component<FeedUrlProps, {}> {
 
     // React to Enter button
     onInputKeyPress (event:KeyboardEvent) {
+        this.props.clearError();
+
         if (event.key === 'Enter') {
             this.submit();
         }

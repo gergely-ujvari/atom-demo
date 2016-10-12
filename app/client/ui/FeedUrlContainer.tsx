@@ -20,6 +20,12 @@ function mapDispatchToProps (dispatch, props: FeedUrlContainerProps): FeedUrlPro
                 type: 'SET_URL',
                 url: url
             } as ApplicationAction);
+        },
+        "clearError": () => {
+            dispatch({
+                type: 'SET_ERROR',
+                errorMessage: ''
+            } as ApplicationAction);
         }
     } as FeedUrlProps;
 }
