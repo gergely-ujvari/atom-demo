@@ -1,6 +1,10 @@
 import { ApplicationState } from './ApplicationState';
 import { ApplicationAction } from './ApplicationAction';
 
+function getNewState(state: ApplicationState, newState: ApplicationState) {
+    return (<any>Object).assign({}, state, newState);
+}
+
 export function setStartState (): ApplicationState {
     return {
         feedUrl: '',
@@ -12,14 +16,11 @@ export function setStartState (): ApplicationState {
 export function reducer (state: ApplicationState, action: ApplicationAction) {
     switch (action.type) {
         case "SET_URL":
-            state.feedUrl = action.url;
-            return state;
+            return getNewState(state, { feedUrl: action.url } as ApplicationState);
         case "SET_ERROR":
-            state.errorMessage = action.errorMessage;
-            return state;
+            return getNewState(state, { errorMessage: action.errorMessage} as ApplicationState);
         case "FEED_DATA":
-            state.feedData = action.feedData;
-            return state;
+            return getNewState(state, { feedData: action.feedData} as ApplicationState);
         default:
             return state;
     }

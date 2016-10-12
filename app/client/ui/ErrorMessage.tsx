@@ -6,9 +6,10 @@ export interface ErrorMessageProps {
 
 export class ErrorMessage extends React.Component<ErrorMessageProps,{}> {
     render () {
+        console.log('render', this.props);
         return (
             <div>
-                {this.props.message}
+                Error: {this.props.message}
             </div>
         );
     }
