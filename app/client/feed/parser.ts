@@ -7,6 +7,11 @@ let request = require('request');
 
 export function processUrl(url: string, cb:(err:Error, feed?:AtomFeed) => void) {
     let req = request(url);
+
+    // Some feeds do not respond without user-agent and accept headers.
+    req.setHeader('user-agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36');
+    req.setHeader('accept', 'text/html,application/xhtml+xml');
+
     let feedParser = new FeedParser();
 
     req.on('error', (error:Error) => {
