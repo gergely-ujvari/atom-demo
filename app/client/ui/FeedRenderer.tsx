@@ -8,14 +8,15 @@ export interface FeedRendererProps {
 
 export class FeedRenderer extends React.Component<FeedRendererProps, {}> {
     renderHeader () {
-        if (this.props.articles.length > 1) {
-            return (
-                <h4>Showing {this.props.articles.length} articles</h4>
-            );
-        } else {
-            return (
-                <h4>Showing {this.props.articles.length} article</h4>
-            );
+        const articleNumber:number = this.props.articles.length;
+
+        switch (articleNumber) {
+            case 0:
+                return <h4>No article found!</h4>;
+            case 1:
+                return <h4>Showing {articleNumber} article</h4>;
+            default:
+                return <h4>Showing {articleNumber} articles</h4>
         }
     }
 
