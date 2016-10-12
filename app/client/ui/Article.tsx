@@ -15,11 +15,13 @@ export class Article extends React.Component<ArticleProps,{}> {
         }
 
         return (
-            <li className="list-group-item list-group-item-action panel-default atom-article-list-item">
+            <li className="list-group-item list-group-item-action panel-primary atom-article-list-item">
                 <div className="list-group-item-heading panel-heading">
                     <h5>{this.props.article.title}
                         <span className="pull-right">
-                            <a href={this.props.article.link} target="_blank">
+                            <a className="atom-article-date-link"
+                               href={this.props.article.link}
+                               target="_blank">
                                 {this.props.article.published.toLocaleString()}
                             </a>
                         </span>

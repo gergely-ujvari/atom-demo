@@ -7,10 +7,22 @@ export interface FeedRendererProps {
 }
 
 export class FeedRenderer extends React.Component<FeedRendererProps, {}> {
+    renderHeader () {
+        if (this.props.articles.length > 1) {
+            return (
+                <h4>Showing {this.props.articles.length} articles</h4>
+            );
+        } else {
+            return (
+                <h4>Showing {this.props.articles.length} article</h4>
+            );
+        }
+    }
+
     renderArticles () {
         return this.props.articles.map((a:AtomArticle, index:number) => {
             return <Article article={a} key={index}/>;
-        })
+        });
     }
 
     render () {
@@ -19,9 +31,13 @@ export class FeedRenderer extends React.Component<FeedRendererProps, {}> {
         }
 
         return (
-            <ul className="list-group atom-feed-renderer">
-                {this.renderArticles()}
-            </ul>
-        )
+            <div className="atom-feed-renderer">
+                {this.renderHeader()}
+
+                <ul className="list-group">
+                    {this.renderArticles()}
+                </ul>
+            </div>
+        );
     }
 }
