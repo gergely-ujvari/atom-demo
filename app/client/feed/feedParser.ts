@@ -1,9 +1,9 @@
 // Fetching the Atom feed - using YQL as a free proxy
 
-let feed = require("feed-read-parser");
+let parser = require('node-feedparser');
 let validUrl = require('valid-url');
 import { HTTP } from 'meteor/http';
-import { Article } from "./feed";
+import { AtomFeed } from "./feed";
 
 const proxyUrl = 'https://query.yahooapis.com/v1/public/yql?q=';
 
@@ -15,26 +15,47 @@ function getProxyUrl (url: string) {
     return proxyUrl + encodeURIComponent(getSelectString(url));
 }
 
-export function processUrl(url: string, cb:(err:Error, articles?: Article[]) => void) {
-    if (!validUrl.isUri(url)) {
-        return cb(new Error('Invalid URL (' + url + ')'));
-    }
+// Simple way to extract response body without parsing the xml twice
+function getResponseBody (content: string) {
+    const dataStartIndex = content.indexOf('<results>') + '<results>'.length;
+    const dataEndIndex = content.lastIndexOf('</results>');
+    return content.substring(dataStartIndex, dataEndIndex);
+}
 
-    HTTP.get(getProxyUrl(url), function (error:Error, res:HTTP.HTTPResponse) {
-        if (error) {
-            return cb(error);
+// Simple way to see if YQL has given an empty answer
+function checkForEmptyResult (content: string) {
+    return content.indexOf('<results>') === -1;
+}
+
+export function processUrl(url: string, cb:(err:Error, feed?: AtomFeed) => void) {
+    try {
+        if (!validUrl.isUri(url)) {
+            return cb(new Error('Invalid URL (' + url + ')'));
         }
 
-        if (res.statusCode !== 200) {
-            return cb(new Error('Bad status code - ' + res.statusCode));
-        }
-
-        feed.atom(res.content, function (parseError: Error, articles:Article[]) {
-            if (parseError) {
-                return cb(parseError);
+        HTTP.get(getProxyUrl(url), function (error:Error, res:HTTP.HTTPResponse) {
+            if (error) {
+                return cb(error);
             }
 
-            return cb(null, articles);
+            if (res.statusCode !== 200) {
+                return cb(new Error('Bad status code - ' + res.statusCode));
+            }
+
+            if (checkForEmptyResult(res.content)) {
+                return cb(new Error('No feed found for URL (' + url + ')'));
+            }
+
+            parser(getResponseBody(res.content), function (parseError:Error, ret:AtomFeed) {
+                if (parseError) {
+                    return cb(parseError);
+                }
+
+                return cb(null, ret);
+            });
         });
-    });
+    }
+    catch (error) {
+        return cb(error);
+    }
 }

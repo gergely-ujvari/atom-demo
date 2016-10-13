@@ -1,42 +1,38 @@
 import * as React from 'react';
-import { Article } from "../feed/feed";
+import { Article, AtomFeed } from "../feed/feed";
 import { ArticleRenderer } from "./ArticleRenderer";
 
 export interface FeedRendererProps {
-    articles: Article[];
+    feed?: AtomFeed;
 }
 
 // Component for rendering the found article list
 export class FeedRenderer extends React.Component<FeedRendererProps, {}> {
-    renderHeader () {
-        const articleNumber:number = this.props.articles.length;
-
-        switch (articleNumber) {
-            case 0:
-                return <h4>No article found!</h4>;
-            case 1:
-                return <h4>Showing {articleNumber} article</h4>;
-            default:
-                return <h4>Showing {articleNumber} articles</h4>
+    renderNoResult () {
+        if (!this.props.feed.items || !this.props.feed.items.length) {
+            return <h4>No article found!</h4>;
         }
+
+        return null;
     }
 
     renderArticles () {
-        return this.props.articles.map((a:Article, index:number) => {
-            return <ArticleRenderer article={a} key={index}/>;
+        return this.props.feed.items.map((a:Article, index:number) => {
+            return <ArticleRenderer article={a} header={false} key={index}/>;
         });
     }
 
     render () {
-        if (!this.props.articles) {
+        if (!this.props.feed) {
             return null;
         }
 
         return (
             <div className="atom-feed-renderer">
-                {this.renderHeader()}
+                {this.renderNoResult()}
 
                 <ul className="list-group">
+                    <ArticleRenderer article={this.props.feed.site} header={true} key={-1}/>
                     {this.renderArticles()}
                 </ul>
             </div>

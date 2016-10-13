@@ -5,14 +5,14 @@
     "start": "meteor run"
   },
   "dependencies": {
+    "classnames": "^2.2.5",
     "common.js": "^1.1.1",
-    "feed-read-parser": "0.0.6",
     "meteor-node-stubs": "^0.2.3",
+    "node-feedparser": "^1.0.1",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-redux": "^4.4.5",
     "redux": "^3.6.0",
-    "request": "^2.75.0",
     "valid-url": "^1.0.9"
   }
 }

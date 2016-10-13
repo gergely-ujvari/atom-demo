@@ -1,15 +1,17 @@
 // Definitions for the received atom feed article
-// See https://www.npmjs.com/package/feed-read-parser
+// defined by node-feedparser
 
 export interface Article {
-    title?: string;
     author?: string;
+    date?: Date;
+    description?: string;
     link?: string;
-    content?: string;
-    published?: Date;
-    feed?: {
-        name?: string;
-        source?: string;
-        link?: string;
-    }
+    title?: string;
+    summary?: string;
+}
+
+// Site is the general metadata
+export interface AtomFeed {
+    items: Article[];
+    site: Article
 }

@@ -8,7 +8,7 @@ function getNewState(state: ApplicationState, newState: ApplicationState) {
 export function setStartState (): ApplicationState {
     return {
         feedUrl: '',
-        articles: null,
+        feed: null,
         errorMessage: ''
     };
 }
@@ -16,11 +16,11 @@ export function setStartState (): ApplicationState {
 export function reducer (state: ApplicationState, action: ApplicationAction) {
     switch (action.type) {
         case "SET_URL":
-            return getNewState(state, { feedUrl: action.url, errorMessage: '', articles: null } as ApplicationState);
+            return getNewState(state, { feedUrl: action.url, errorMessage: '', feed: null } as ApplicationState);
         case "SET_ERROR":
             return getNewState(state, { errorMessage: action.errorMessage} as ApplicationState);
         case "FEED_DATA":
-            return getNewState(state, { articles: action.feedData} as ApplicationState);
+            return getNewState(state, { feed: action.feedData} as ApplicationState);
         default:
             return state;
     }

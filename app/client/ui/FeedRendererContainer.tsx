@@ -9,7 +9,7 @@ interface FeedRendererContainerProps {
 
 function mapStateToProps (state: ApplicationState, props: FeedRendererContainerProps): FeedRendererProps {
     return {
-        articles: state.articles
+        feed: state.feed
     } as FeedRendererProps;
 }
 
