@@ -1,7 +1,9 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import { Spinner } from './Spinner';
 
 export interface FeedUrlProps {
+    fetching?: boolean;
     url?: string;
     setFeedUrl?: (url:string) => void;
     clearError?: () => void;
@@ -28,6 +30,16 @@ export class FeedUrl extends React.Component<FeedUrlProps, {}> {
         }
     }
 
+    renderSpinner () {
+        if (this.props.fetching) {
+            return (
+                <Spinner/>
+            )
+        } else {
+            return null;
+        }
+    }
+
     public render () {
         return (
             <div className="row">
@@ -43,9 +55,11 @@ export class FeedUrl extends React.Component<FeedUrlProps, {}> {
 
                     <span className="input-group-btn">
                         <button className="btn btn-primary"
+                                disabled={this.props.fetching}
                                 type="submit"
                                 onClick={this.onButtonClick.bind(this)}
                         >
+                            { this.renderSpinner() }
                             Read
                         </button>
                     </span>
