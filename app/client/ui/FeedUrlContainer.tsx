@@ -9,6 +9,7 @@ interface FeedUrlContainerProps {
 
 function mapStateToProps (state: ApplicationState, props: FeedUrlContainerProps): FeedUrlProps {
     return {
+        fetching: state.fetching,
         url: state.feedUrl
     } as FeedUrlProps;
 }
