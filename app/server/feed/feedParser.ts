@@ -15,8 +15,6 @@ Meteor.methods({
         let wrappedFn = function(cb:(error:Meteor.Error, feed?:AtomFeed) => void) {
             // Get the atom-feed-xml
             HTTP.get(url, function (error:Error, res:HTTP.HTTPResponse) {
-                console.log('response', error);
-
                 // Request error
                 if (error) {
                     return cb(new Meteor.Error(error.toString()));
