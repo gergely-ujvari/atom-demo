@@ -1,6 +1,6 @@
 import * as React from 'react';
-import * as classNames from 'classnames';
-import { Article } from "../feed/feed";
+let classNames = require('classnames');
+import { Article } from "../../common/feed/feed";
 
 interface ArticleProps {
     header: boolean;

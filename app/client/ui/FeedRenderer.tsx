@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Article, AtomFeed } from "../feed/feed";
+import { Article, AtomFeed } from "../../common/feed/feed";
 import { ArticleRenderer } from "./ArticleRenderer";
 
 export interface FeedRendererProps {
