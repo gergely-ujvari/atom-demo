@@ -5,75 +5,74 @@ import { Article } from "../feed/feed";
 interface ArticleProps {
     header: boolean;
     article: Article;
+    key?: number;
 }
 
 // Component responsible for rendering a simple Article
-export class ArticleRenderer extends React.Component<ArticleProps,{}> {
-    renderDateLink () {
-        if (!this.props.article.date) {
+export const ArticleRenderer:React.StatelessComponent<ArticleProps> = (props:ArticleProps) => {
+    const renderDateLink = () => {
+        if (!props.article.date) {
             return null;
         }
 
         const classes = classNames({
-            'atom-article-date-link': !this.props.header
+            'atom-article-date-link': !props.header
         });
 
         return (
             <span className="pull-right">
                 <a className={classes}
-                   href={this.props.article.link}
+                   href={props.article.link}
                    target="_blank">
-                    {this.props.article.date.toLocaleString()}
+                    {props.article.date.toLocaleString()}
                 </a>
             </span>
         );
-    }
+    };
 
-    renderBody () {
-        if (this.props.article.description) {
+    const renderBody = () => {
+        if (props.article.description) {
             return (
                 <div className="list-group-item-text atom-article-content"
-                     dangerouslySetInnerHTML={{__html: this.props.article.description}}
+                     dangerouslySetInnerHTML={{__html: props.article.description}}
                 />
             );
         }
 
-        if (this.props.article.summary) {
+        if (props.article.summary) {
             return (
                 <div className="list-group-item-text atom-article-content">
-                    {this.props.article.summary}
+                    {props.article.summary}
                 </div>
             );
         }
 
         return null;
+    };
+
+    if (!props.article) {
+        return null;
     }
 
-    render () {
-        if (!this.props.article) {
-            return null;
-        }
+    const classes = classNames({
+        'list-group-item': true,
+        'list-group-item-action': true,
+        'panel-primary': !props.header,
+        'panel-info': props.header,
+        'atom-article-list-item': true
 
-        const classes = classNames({
-            'list-group-item': true,
-            'list-group-item-action': true,
-            'panel-primary': !this.props.header,
-            'panel-info': this.props.header,
-            'atom-article-list-item': true
+    });
 
-        });
+    return (
+        <li className={classes}>
+            <div className="list-group-item-heading panel-heading">
+                <h5>
+                    {props.article.title}
+                    {renderDateLink()}
+                </h5>
+            </div>
 
-        return (
-            <li className={classes}>
-                <div className="list-group-item-heading panel-heading">
-                    <h5>
-                        {this.props.article.title}
-                        {this.renderDateLink()}
-                    </h5>
-                </div>
-
-                {this.renderBody()}
-            </li>
-        )
-    }
-}
+            {renderBody()}
+        </li>
+    );
+};
