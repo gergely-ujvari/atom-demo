@@ -10,61 +10,64 @@ export interface FeedUrlProps {
 }
 
 // Simple form for dropping the feed URL.
-export class FeedUrl extends React.Component<FeedUrlProps, {}> {
-    private submit () {
-        const url = ReactDOM.findDOMNode<HTMLInputElement>(this.refs['feedUrl']).value.trim();
-        this.props.setFeedUrl(url);
-    }
+export const FeedUrl:React.StatelessComponent<FeedUrlProps> = (props:FeedUrlProps) => {
+    let url:string = props.url;
 
-    onButtonClick (event:Event) {
+    const submit = () => {
+        props.setFeedUrl(url);
+    };
+
+    const onButtonClick = (event:Event) => {
         event.preventDefault();
-        this.submit();
-    }
+        submit();
+    };
 
     // React to Enter button
-    onInputKeyPress (event:KeyboardEvent) {
-        this.props.clearError();
+    const onInputKeyPress = (event:KeyboardEvent) => {
+        props.clearError();
 
         if (event.key === 'Enter') {
-            this.submit();
+            submit();
         }
-    }
+    };
 
-    renderSpinner () {
-        if (this.props.fetching) {
+    const onChange = (event:Event) => {
+        url = (event.target as any).value;
+    };
+
+    const renderSpinner = () => {
+        if (props.fetching) {
             return (
                 <Spinner/>
             )
         } else {
             return null;
         }
-    }
+    };
 
-    public render () {
-        return (
-            <div className="row">
-                <div className="input-group">
-                    <input className="form-control"
-                           defaultValue={this.props.url}
-                           onKeyPress={this.onInputKeyPress.bind(this)}
-                           placeholder="Feed URL"
-                           ref="feedUrl"
-                           type="url"
-                           autoFocus
-                    />
+    return (
+        <div className="row">
+            <div className="input-group">
+                <input className="form-control"
+                       defaultValue={props.url}
+                       onKeyPress={onInputKeyPress}
+                       onChange={onChange}
+                       placeholder="Feed URL"
+                       type="url"
+                       autoFocus
+                />
 
-                    <span className="input-group-btn">
-                        <button className="btn btn-primary"
-                                disabled={this.props.fetching}
-                                type="submit"
-                                onClick={this.onButtonClick.bind(this)}
-                        >
-                            { this.renderSpinner() }
-                            Read
-                        </button>
-                    </span>
-                </div>
+                <span className="input-group-btn">
+                    <button className="btn btn-primary"
+                            disabled={props.fetching}
+                            type="submit"
+                            onClick={onButtonClick.bind(this)}
+                    >
+                        { renderSpinner() }
+                        Read
+                    </button>
+                </span>
             </div>
-        )
-    }
-}
+        </div>
+    )
+};
